@@ -1,3 +1,2 @@
 ﻿
-Week1Exercises.LinqDeferred.RunWhere();
-Week1Exercises.LinqDeferred.RunWhereWithList();
+Week1Exercises.LinqDeferred.Run();

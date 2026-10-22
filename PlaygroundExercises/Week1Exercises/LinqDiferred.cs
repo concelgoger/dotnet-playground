@@ -4,8 +4,16 @@ using System.Text;
 
 namespace Week1Exercises
 {
+    /// <summary>
+    /// Class to test deferred request in Linq
+    /// </summary>
     public static class LinqDeferred
     {
+        public static void Run()
+        {
+            RunWhere();
+            RunWhereWithList();
+        }
         public static void RunWhere()
         {
             var numbers = new List<int> { 1, 2, 3 };
