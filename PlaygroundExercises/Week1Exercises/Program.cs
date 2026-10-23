@@ -1,3 +1,6 @@
 ﻿
-Week1Exercises.LinqDeferred.Run();
-Week1Exercises.RecordDemo.Run();
+using Week1Exercises.Demo;
+
+LinqDeferredDemo.Run();
+RecordDemo.Run();
+CabinetDemo.Run();

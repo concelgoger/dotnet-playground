@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Week1Exercises
+namespace Week1Exercises.Demo
 {
     /// <summary>
     /// Class to test deferred request in Linq
     /// </summary>
-    public static class LinqDeferred
+    public static class LinqDeferredDemo
     {
         public static void Run()
         {
