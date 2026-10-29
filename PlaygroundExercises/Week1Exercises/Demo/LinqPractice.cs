@@ -52,6 +52,37 @@ namespace Week1Exercises.Demo
                 Console.WriteLine(item);
             }
             var minEffectiveDateItem = medicineList.MinBy(x => x.EffectiveExpiryDate);
+
+            /*
+             * Block 3
+             */
+
+            var expiresSoonQuery = medicineList.Where(x => MedicationRules.GetStatus(x, today) == MedicationStatus.ExpiresSoon);
+
+            medicineList.Add(new("Називин", today.AddDays(24), null, null));
+
+            Console.WriteLine($"expiresSoonQuery count: {expiresSoonQuery.Count()}");
+
+            var expiresSoonList = medicineList.Where(x => MedicationRules.GetStatus(x, today) == MedicationStatus.ExpiresSoon);
+            medicineList.Add(new("Хлоргексидин", today.AddDays(23), null, null));
+
+            Console.WriteLine($"expiresSoonList count: {expiresSoonList.Count()}");
+
+            try
+            {
+                medicineList.ToDictionary(x => x.Name);
+            }
+            catch (Exception ex)
+            { 
+                Console.WriteLine(ex.GetType()); 
+            }
+
+            var byNameLookup = medicineList.ToLookup(x => x.Name);
+
+            foreach(var m in byNameLookup["Парацетамол"])
+                Console.WriteLine(m);
+
+
         }
     }
 }
