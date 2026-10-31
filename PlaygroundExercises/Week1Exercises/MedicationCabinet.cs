@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Week1Exercises
+﻿namespace Week1Exercises
 {
     public class MedicationCabinet(TimeProvider clock)
     {
@@ -22,9 +18,9 @@ namespace Week1Exercises
             return GetWithStatus(items, MedicationStatus.ExpiresSoon, MedicationStatus.Expired);
         }
 
-        private IReadOnlyList<Medication> GetWithStatus(IEnumerable<Medication> items,params MedicationStatus[] statuses)
+        private IReadOnlyList<Medication> GetWithStatus(IEnumerable<Medication> items, params MedicationStatus[] statuses)
         {
-            return items.Where(x => statuses.Contains( MedicationRules.GetStatus(x, Today))).ToList();
+            return items.Where(x => statuses.Contains(MedicationRules.GetStatus(x, Today))).ToList();
         }
     }
 }

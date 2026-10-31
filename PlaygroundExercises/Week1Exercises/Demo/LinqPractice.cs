@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Week1Exercises.Demo
+﻿namespace Week1Exercises.Demo
 {
     public static class LinqPractice
     {
@@ -84,7 +80,7 @@ namespace Week1Exercises.Demo
             try
             {
                 medicines.ToDictionary(x => x.Name);
-            }            
+            }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.GetType());

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Week1Exercises
+﻿namespace Week1Exercises
 {
     public static class MedicationRules
     {
