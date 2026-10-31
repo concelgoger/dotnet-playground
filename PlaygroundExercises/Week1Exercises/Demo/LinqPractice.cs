@@ -70,22 +70,21 @@ namespace Week1Exercises.Demo
             var expiresSoonQuery = medicines
                                     .Where(x => MedicationRules.GetStatus(x, today) == MedicationStatus.ExpiresSoon);
 
-            medicines.Add(new("Називин", today.AddDays(24), null, null));
-
-            Console.WriteLine($"expiresSoonQuery count: {expiresSoonQuery.Count()}");
-
             var expiresSoonList = medicines
                                     .Where(x => MedicationRules.GetStatus(x, today) == MedicationStatus.ExpiresSoon)
                                     .ToList();
+
+            medicines.Add(new("Називин", today.AddDays(24), null, null));
             medicines.Add(new("Хлоргексидин", today.AddDays(24), null, null));
 
+            Console.WriteLine($"expiresSoonQuery count: {expiresSoonQuery.Count()}");
             Console.WriteLine($"expiresSoonList count: {expiresSoonList.Count()}");
 
+            //cath Exception with duplicates while creating Dictionary
             try
             {
                 medicines.ToDictionary(x => x.Name);
-            }
-            //cath Exception with duplicates
+            }            
             catch (Exception ex)
             {
                 Console.WriteLine(ex.GetType());
