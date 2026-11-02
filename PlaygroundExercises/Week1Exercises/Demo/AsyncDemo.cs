@@ -10,6 +10,7 @@ public class AsyncDemo
     public static async Task RunAsync()
     {
         await Block1();
+        await Block2();
     }
 
     public static async Task Block1()
@@ -22,6 +23,7 @@ public class AsyncDemo
         Console.WriteLine(Environment.CurrentManagedThreadId);
 
         FakeMedicationStore store = new FakeMedicationStore();
+
         await store.AddAsync(new Medication("Ибупрофен", today.AddDays(60), today.AddDays(-7), 30));
         await store.AddAsync(new Medication("Парацетамол", today.AddDays(200), null, null));
 
@@ -31,15 +33,36 @@ public class AsyncDemo
 
         stopWatch.Stop();
 
-        // Get the elapsed time as a TimeSpan value.
-        TimeSpan ts = stopWatch.Elapsed;
-
-        string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-            ts.Hours, ts.Minutes, ts.Seconds,
-            ts.Milliseconds / 10);
-        Console.WriteLine("RunTime " + elapsedTime);
+        Console.WriteLine($"RunTime {stopWatch.ElapsedMilliseconds} ms");
 
         Console.WriteLine(Environment.CurrentManagedThreadId);
 
+    }
+
+    public static async Task Block2()
+    {
+        FakeMedicationStore store = new FakeMedicationStore();
+        Stopwatch stopWatch = new Stopwatch();
+        stopWatch.Start();
+        await store.GetAllAsync();
+        await store.GetAllAsync();
+        await store.GetAllAsync();
+
+        stopWatch.Stop();
+
+        Console.WriteLine($"RunTime {stopWatch.ElapsedMilliseconds} ms");
+
+
+        Stopwatch stopWatch1 = new Stopwatch();
+        stopWatch1.Start();
+        Task getStoreData1 = store.GetAllAsync();
+        Task getStoreData2 = store.GetAllAsync();
+        Task getStoreData3 = store.GetAllAsync();
+
+        await Task.WhenAll(getStoreData1, getStoreData2, getStoreData3);
+
+        stopWatch1.Stop();
+
+        Console.WriteLine($"RunTime {stopWatch1.ElapsedMilliseconds} ms");
     }
 }
