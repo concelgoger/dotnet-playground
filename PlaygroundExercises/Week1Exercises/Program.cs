@@ -5,3 +5,4 @@ LinqDeferredDemo.Run();
 RecordDemo.Run();
 CabinetDemo.Run();
 LinqPractice.Run();
+await AsyncDemo.RunAsync();
