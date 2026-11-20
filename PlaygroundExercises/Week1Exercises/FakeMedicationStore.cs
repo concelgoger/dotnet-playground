@@ -10,7 +10,9 @@ public class FakeMedicationStore
 
     public async Task AddAsync(Medication medication, CancellationToken ct = default)
     {
+        Console.WriteLine("AddAsync: до await");
         await Task.Delay(1000, ct);
+        Console.WriteLine("AddAsync: после await");
         _items.Add(medication);
     }
 

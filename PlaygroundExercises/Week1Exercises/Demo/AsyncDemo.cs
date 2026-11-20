@@ -9,11 +9,12 @@ public class AsyncDemo
 {
     public static async Task RunAsync()
     {
-        await Block1();
-        await Block2();
+        await RunSequentialAsync();
+        await RunWhenAllAsync();
+        await RunCancellationAsync();
     }
 
-    public static async Task Block1()
+    public static async Task RunSequentialAsync()
     {
         var today = DateOnly.FromDateTime(DateTime.Today);
 
@@ -39,7 +40,7 @@ public class AsyncDemo
 
     }
 
-    public static async Task Block2()
+    public static async Task RunWhenAllAsync()
     {
         FakeMedicationStore store = new FakeMedicationStore();
         Stopwatch stopWatch = new Stopwatch();
@@ -64,5 +65,29 @@ public class AsyncDemo
         stopWatch1.Stop();
 
         Console.WriteLine($"RunTime {stopWatch1.ElapsedMilliseconds} ms");
+    }
+
+    public static async Task RunCancellationAsync()
+    {
+        var today = DateOnly.FromDateTime(DateTime.Today);
+
+        var store = new FakeMedicationStore();
+        using var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(500));
+        var sw = Stopwatch.StartNew();
+
+        Console.WriteLine("RunAsync: перед вызовом");
+        Task addTask = store.AddAsync(new Medication("Ибупрофен", today.AddDays(60), today.AddDays(-7), 30), cts.Token);   // без await        
+        Console.WriteLine("RunAsync: вызов вернулся");
+
+        try
+        {
+            await addTask;                                // теперь ждём
+            Console.WriteLine("RunAsync: задача завершена");
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine($"RunAsync: отменено через {sw.ElapsedMilliseconds} ms");
+        }
+        
     }
 }
